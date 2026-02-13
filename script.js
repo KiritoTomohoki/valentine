@@ -21,22 +21,30 @@ const phrases = [
     "Я не принимаю нет 😄"
 ];
 
+function getSafeViewportHeight() {
+    return window.visualViewport
+        ? window.visualViewport.height
+        : window.innerHeight;
+}
+
 function moveButton() {
 
     const btnWidth = noBtn.offsetWidth;
     const btnHeight = noBtn.offsetHeight;
 
-    // ОТСТУПЫ ОТ КРАЕВ
+    const screenWidth = window.innerWidth;
+    const screenHeight = getSafeViewportHeight();
+
     const padding = 20;
 
-    const maxX = window.innerWidth - btnWidth - padding;
-    const maxY = window.innerHeight - btnHeight - padding;
+    const maxX = screenWidth - btnWidth - padding;
+    const maxY = screenHeight - btnHeight - padding;
 
     const minX = padding;
     const minY = padding;
 
-    const randomX = Math.floor(Math.random() * (maxX - minX)) + minX;
-    const randomY = Math.floor(Math.random() * (maxY - minY)) + minY;
+    const randomX = Math.max(minX, Math.random() * maxX);
+    const randomY = Math.max(minY, Math.random() * maxY);
 
     noBtn.style.position = "fixed";
     noBtn.style.left = randomX + "px";
@@ -45,8 +53,7 @@ function moveButton() {
     const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
     noBtn.innerText = randomPhrase;
 
-    // Увеличиваем кнопку "Да"
-    yesScale += 0.08;
+    yesScale += 0.07;
     yesBtn.style.transform = `scale(${yesScale})`;
 }
 
