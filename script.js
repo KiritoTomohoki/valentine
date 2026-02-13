@@ -22,22 +22,31 @@ const phrases = [
 ];
 
 function moveButton() {
+
     const btnWidth = noBtn.offsetWidth;
     const btnHeight = noBtn.offsetHeight;
 
-    const maxX = window.innerWidth - btnWidth;
-    const maxY = window.innerHeight - btnHeight;
+    // ОТСТУПЫ ОТ КРАЕВ
+    const padding = 20;
 
-    const randomX = Math.floor(Math.random() * maxX);
-    const randomY = Math.floor(Math.random() * maxY);
+    const maxX = window.innerWidth - btnWidth - padding;
+    const maxY = window.innerHeight - btnHeight - padding;
 
+    const minX = padding;
+    const minY = padding;
+
+    const randomX = Math.floor(Math.random() * (maxX - minX)) + minX;
+    const randomY = Math.floor(Math.random() * (maxY - minY)) + minY;
+
+    noBtn.style.position = "fixed";
     noBtn.style.left = randomX + "px";
     noBtn.style.top = randomY + "px";
 
     const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
     noBtn.innerText = randomPhrase;
 
-    yesScale += 0.1;
+    // Увеличиваем кнопку "Да"
+    yesScale += 0.08;
     yesBtn.style.transform = `scale(${yesScale})`;
 }
 
